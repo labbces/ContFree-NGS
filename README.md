@@ -1,3 +1,37 @@
-# ContFree-NGS
+# ContFree-NGS: Removing reads from contaminating organisms in Next Generation Sequencing data. 
 
-#test
+**Motivation**: text
+
+**Results**: text 
+
+**Availability and implementation**: text 
+
+## Requirements
+* python >=version
+
+## Installation
+
+### Get ContFree-NGS from GitHub
+```bash
+cd ~
+git clone https://github.com/labbces/ContFree-NGS.git 
+```
+### Test ContFree-NGS
+```bash
+cd ~
+cd ContFree-NGS
+./ContFree-NGS.py --in input --out output 
+```
+This should print the following in your screen:
+
+```bash
+## output ##
+```
+And should generate the files:
+* output.filtered.fasta
+* output.unclassified.fasta
+
+## Usage
+
+## Examples
+
