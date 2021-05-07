@@ -2,7 +2,7 @@
 
 **Motivation**: text
 
-**Results**: text 
+**Results**: We present ContFree-NGS: a open source software that remove reads from contaminant organisms in your sequencing dataset via taxonomy information... 
 
 **Availability and implementation**: text 
 
