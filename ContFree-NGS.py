@@ -13,7 +13,7 @@ from Bio import SeqIO
 parser = argparse.ArgumentParser(prog='ContFree-NGS.py', description='Removes contaminated sequences from Taxonomy Level in FASTQ files', add_help=True)
 parser.add_argument('--taxonomy', dest='taxonomy_file', metavar='<taxonomy file>', help='A taxonomy classification file', required=True)
 parser.add_argument('--left', dest='left_file', metavar='<left file>', help='left FASTQ file', required=True)
-parser.add_argument('--right', dest='right_file', metavar='<left file>', help='right FASTQ file', required=True)
+parser.add_argument('--right', dest='right_file', metavar='<right file>', help='right FASTQ file', required=True)
 parser.add_argument('--level', dest='taxonomy_level', metavar='<Taxonomy level>', type=str, help='Only descendants from this Taxonomy Level will be maintained',required=True)
 parser.add_argument('--v', '--version', action='version', version='%(prog)s v1.0')
 
