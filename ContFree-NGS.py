@@ -61,7 +61,7 @@ unfiltered_right = right_file[:-5] + "unclassified.fastq"
 #Create counter
 count_filtered_sequences = 0
 count_unclassified_sequences = 0
-
+count_unfiltered_sequences = 0 
 #Filtering files
 with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_left, "w") as classified_left, open(filtered_right, "w") as classified_right, open(unfiltered_left, "w") as unclassified_left, open(unfiltered_right, "w") as unclassified_right:
 	for line in taxonomy_classification_file:
@@ -72,10 +72,13 @@ with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_lef
 		taxonomy_id = int(line.split()[2])
 
 		#Getting sequences in descendants (user taxonomic level)
-		if line.startswith("C") and taxonomy_id in descendants:
-			count_filtered_sequences += 1
-			SeqIO.write(index_left[left_sequence_id], classified_left, "fastq")
-			SeqIO.write(index_right[right_sequence_id], classified_right, "fastq")
+		if line.startswith("C"):
+			if taxonomy_id in descendants:
+				count_filtered_sequences += 1
+				SeqIO.write(index_left[left_sequence_id], classified_left, "fastq")
+				SeqIO.write(index_right[right_sequence_id], classified_right, "fastq")
+			else:  
+				count_unfiltered_sequences += 1
 		#Getting unclassified reads in taxonomy_classification_file file
 		elif line.startswith("U"):
 			count_unclassified_sequences += 1
@@ -84,5 +87,6 @@ with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_lef
 	
 	print("{} sequences are in the {} Taxonomic Level {}.".format(count_filtered_sequences, taxonomy_level))
 	print("{} sequences was unclassified by the taxonomy classification file".format(count_unclassified_sequences))
+	print("{} sequences that are not in the Taxonomic Level {}".format(count_unfiltered_sequences, taxonomy_level))
 	print("Filtered files was created as {} and {}".format(filtered_left, filtered_right))
 	print("Unclassified files was created as {} and {}".format(unfiltered_left, unfiltered_right))
