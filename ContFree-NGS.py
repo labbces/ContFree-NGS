@@ -84,9 +84,7 @@ with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_lef
 			count_unclassified_sequences += 1
 			SeqIO.write(index_left[left_sequence_id], unclassified_left, "fastq")
 			SeqIO.write(index_right[right_sequence_id], unclassified_right, "fastq")
-	
-	print("{} sequences are in the {} Taxonomic Level {}.".format(count_filtered_sequences, taxonomy_level))
-	print("{} sequences was unclassified by the taxonomy classification file".format(count_unclassified_sequences))
-	print("{} sequences that are not in the Taxonomic Level {}".format(count_unfiltered_sequences, taxonomy_level))
-	print("Filtered files was created as {} and {}".format(filtered_left, filtered_right))
-	print("Unclassified files was created as {} and {}".format(unfiltered_left, unfiltered_right))
+	print("Contamination removal was successfully completed!")
+	print("{} sequences are in the taxon {}. These sequences were allocated in the filtered files".format(count_filtered_sequences, taxonomy_level))
+	print("{} sequences was unclassified in the {}. These sequences were allocated in the unclassified files".format(count_unclassified_sequences, taxonomy_file))
+	print("{} sequences are not in the taxon {}. These sequences were discarded".format(count_unfiltered_sequences, taxonomy_level))
