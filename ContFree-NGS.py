@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(prog='ContFree-NGS.py', description='Removes co
 parser.add_argument('--taxonomy', dest='taxonomy_file', metavar='<taxonomy file>', help='A taxonomy classification file', required=True)
 parser.add_argument('--left', dest='left_file', metavar='<left file>', help='left FASTQ file', required=True)
 parser.add_argument('--right', dest='right_file', metavar='<right file>', help='right FASTQ file', required=True)
-parser.add_argument('--level', dest='taxonomy_level', metavar='<Taxonomy level>', type=str, help='Only descendants from this Taxonomy Level will be maintained',required=True)
+parser.add_argument('--taxon', dest='taxon', metavar='<Taxon>', type=str, help='Only this taxon and its descendants will be maintained',required=True)
 parser.add_argument('--v', '--version', action='version', version='%(prog)s v1.0')
 
 #Getting arguments
@@ -22,7 +22,7 @@ args = parser.parse_args()
 taxonomy_file = args.taxonomy_file
 left_file = args.left_file
 right_file = args.right_file
-taxonomy_level = args.taxonomy_level
+taxonomy_level = args.taxon
 
 #checking indexed fastq files and create if it not exists	
 def check_indexed_fastq_files():
@@ -61,7 +61,7 @@ unfiltered_right = right_file[:-5] + "unclassified.fastq"
 #Create counter
 count_filtered_sequences = 0
 count_unclassified_sequences = 0
-
+count_unfiltered_sequences = 0 
 #Filtering files
 with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_left, "w") as classified_left, open(filtered_right, "w") as classified_right, open(unfiltered_left, "w") as unclassified_left, open(unfiltered_right, "w") as unclassified_right:
 	for line in taxonomy_classification_file:
@@ -72,17 +72,19 @@ with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_lef
 		taxonomy_id = int(line.split()[2])
 
 		#Getting sequences in descendants (user taxonomic level)
-		if line.startswith("C") and taxonomy_id in descendants:
-			count_filtered_sequences += 1
-			SeqIO.write(index_left[left_sequence_id], classified_left, "fastq")
-			SeqIO.write(index_right[right_sequence_id], classified_right, "fastq")
+		if line.startswith("C"):
+			if taxonomy_id in descendants:
+				count_filtered_sequences += 1
+				SeqIO.write(index_left[left_sequence_id], classified_left, "fastq")
+				SeqIO.write(index_right[right_sequence_id], classified_right, "fastq")
+			else:  
+				count_unfiltered_sequences += 1
 		#Getting unclassified reads in taxonomy_classification_file file
 		elif line.startswith("U"):
 			count_unclassified_sequences += 1
 			SeqIO.write(index_left[left_sequence_id], unclassified_left, "fastq")
 			SeqIO.write(index_right[right_sequence_id], unclassified_right, "fastq")
-	
-	print("{} sequences are in the {} Taxonomic Level {}.".format(count_filtered_sequences, taxonomy_level))
-	print("{} sequences was unclassified by the taxonomy classification file".format(count_unclassified_sequences))
-	print("Filtered files was created as {} and {}".format(filtered_left, filtered_right))
-	print("Unclassified files was created as {} and {}".format(unfiltered_left, unfiltered_right))
+	print("Contamination removal was successfully completed!")
+	print("{} sequences are in the taxon {}. These sequences were allocated in the filtered files".format(count_filtered_sequences, taxonomy_level))
+	print("{} sequences was unclassified in the {}. These sequences were allocated in the unclassified files".format(count_unclassified_sequences, taxonomy_file))
+	print("{} sequences are not in the taxon {}. These sequences were discarded".format(count_unfiltered_sequences, taxonomy_level))
