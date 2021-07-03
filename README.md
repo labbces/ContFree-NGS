@@ -18,12 +18,12 @@ git clone https://github.com/labbces/ContFree-NGS.git
 ### Python dependencies 
 
 Install ETE Toolkit (ete3):
-```
+```bash
 pip install ete3
 ```
 
 Install Biopython:
-```
+```bash
 pip install biopython
 ```
 
@@ -41,7 +41,7 @@ Check `ContFreeNGS/data/README.md` for more information about the Sugarcane cont
 ```
 
 This should print the following in your screen:
-```bash
+```
 Indexing fastq files, please wait ... 
 
 -------------------------------------------------
