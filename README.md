@@ -30,14 +30,30 @@ pip install biopython
 ## Example 
 
 We have prepared a Sugarcane contaminated dataset for your first run, it is available at `ContFree-NGS/data`. This dataset contains:
-* 1000 paired-end reads (fastq format), which 80% come from SP80-3280, a genotype of Sugarcane spp. ([SRR1774134](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1774134)), 15% from Acinetobacter baumanii ([SRR12763742](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR12763742)) and 5% from Aspergillus fumigatus ([DRR289670](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=DRR289670))
-* A file with the NCBI Taxonomic ID for all of these reads, generated with `Kraken2`, using the parameter --confidence 0.05.
+* 1000 paired-end reads in fastq format;
+* A file with the NCBI Taxonomic ID for all of these reads. 
 
-For more information, check `ContFreeNGS/data/README.md`
+Check `ContFreeNGS/data/README.md` for more information about the Sugarcane contaminated dataset.
 
-### Running ContFree-NGS in a Sugarcane contaminated dataset, keeping only taxons in Viridiplantae  
+### Running ContFree-NGS in the contaminated dataset, keeping only taxons in Viridiplantae  
 ```bash
-./ContFree-NGS.py --taxonomy contaminated_sugarcane.kraken --left contaminated_sugarcane_1.fastq --right contaminated_sugarcane_2.fastq --taxon Viridiplantae 
+./ContFree-NGS.py --taxonomy data/contaminated_sugarcane.kraken --left data/contaminated_sugarcane_1.fastq --right data/contaminated_sugarcane_2.fastq --taxon Viridiplantae 
+```
+
+This should print the following in your screen:
+```bash
+Indexing fastq files, please wait ... 
+
+-------------------------------------------------
+Contamination removal was successfully completed!
+-------------------------------------------------
+Viridiplantae descendants sequences: 410
+Contaminant sequences: 128
+Unlabelled sequences: 462
+-------------------------------------------------
+Viridiplantae descendants sequences are in the filtered files
+Contaminant sequences were discarded
+Unlabelled sequences are in the unclassified files
 ```
 
 
