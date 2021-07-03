@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 '''						Description
-
 '''
 
 import argparse
@@ -10,10 +9,10 @@ from ete3 import NCBITaxa
 from Bio import SeqIO
 
 # Creating arguments
-parser = argparse.ArgumentParser(prog='ContFree-NGS.py', description='Removes contaminated sequences from Taxonomy Level in FASTQ files', add_help=True)
+parser = argparse.ArgumentParser(prog='ContFree-NGS.py', description='Removing reads from contaminating organisms in Next Generation Sequencing datatasets', add_help=True)
 parser.add_argument('--taxonomy', dest='taxonomy_file', metavar='<taxonomy file>', help='A taxonomy classification file', required=True)
-parser.add_argument('--left', dest='left_file', metavar='<left file>', help='left FASTQ file', required=True)
-parser.add_argument('--right', dest='right_file', metavar='<right file>', help='right FASTQ file', required=True)
+parser.add_argument('--left', dest='left_file', metavar='<left file>', help='left read file', required=True)
+parser.add_argument('--right', dest='right_file', metavar='<right file>', help='right read file', required=True)
 parser.add_argument('--taxon', dest='taxon', metavar='<Taxon>', type=str, help='Only this taxon and its descendants will be maintained',required=True)
 parser.add_argument('--v', '--version', action='version', version='%(prog)s v1.0')
 
@@ -22,32 +21,32 @@ args = parser.parse_args()
 taxonomy_file = args.taxonomy_file
 left_file = args.left_file
 right_file = args.right_file
-taxonomy_level = args.taxon
+taxon = args.taxon
 
-#checking indexed fastq files and create if it not exists	
+#Checking for indexed file and create it if dont exists	
 def check_indexed_fastq_files():
 	indexdb_left_file = left_file[:-5] + "index"
 	indexdb_right_file = right_file[:-5] + "index"
 	if not os.path.exists(indexdb_left_file) and not os.path.exists(indexdb_right_file):
-		print("Indexing fastq files, please wait ...")
+		print("Indexing fastq files, please wait ... \n")
 		left_index_db = SeqIO.index_db(indexdb_left_file, left_file, "fastq")
 		right_index_db = SeqIO.index_db(indexdb_right_file, right_file, "fastq")
 
 check_indexed_fastq_files()
 
-#Opening fastq files indexdb
+#Opening indexed files
 try:
 	index_left = SeqIO.index_db(left_file[:-5] + "index")
 	index_right = SeqIO.index_db(right_file[:-5] + "index")
 except: 
 	print("An exception occurred")
 
-#Getting taxonomy database and taxonomy level
+#Getting NCBI taxonomy database and user taxon
 ncbi = NCBITaxa()
-descendants = ncbi.get_descendant_taxa(taxonomy_level, intermediate_nodes=True)
+descendants = ncbi.get_descendant_taxa(taxon, intermediate_nodes=True)
 
-#Getting user taxonomy level and append to descendants 
-name2taxid = ncbi.get_name_translator([taxonomy_level])
+#Translate user taxon and append it to descendants 
+name2taxid = ncbi.get_name_translator([taxon])
 the_values = name2taxid.values()  
 user_tax_id = list(the_values)[0][0]
 descendants.append(user_tax_id)
@@ -59,9 +58,9 @@ unfiltered_left = left_file[:-5] + "unclassified.fastq"
 unfiltered_right = right_file[:-5] + "unclassified.fastq"
 
 #Create counter
-count_filtered_sequences = 0
+count_descendants_sequences = 0
 count_unclassified_sequences = 0
-count_unfiltered_sequences = 0 
+count_contaminant_sequences = 0 
 #Filtering files
 with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_left, "w") as classified_left, open(filtered_right, "w") as classified_right, open(unfiltered_left, "w") as unclassified_left, open(unfiltered_right, "w") as unclassified_right:
 	for line in taxonomy_classification_file:
@@ -74,17 +73,24 @@ with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_lef
 		#Getting sequences in descendants (user taxonomic level)
 		if line.startswith("C"):
 			if taxonomy_id in descendants:
-				count_filtered_sequences += 1
+				count_descendants_sequences += 1
 				SeqIO.write(index_left[left_sequence_id], classified_left, "fastq")
 				SeqIO.write(index_right[right_sequence_id], classified_right, "fastq")
 			else:  
-				count_unfiltered_sequences += 1
+				count_contaminant_sequences += 1
 		#Getting unclassified reads in taxonomy_classification_file file
 		elif line.startswith("U"):
 			count_unclassified_sequences += 1
 			SeqIO.write(index_left[left_sequence_id], unclassified_left, "fastq")
 			SeqIO.write(index_right[right_sequence_id], unclassified_right, "fastq")
+
+	print("-------------------------------------------------")
 	print("Contamination removal was successfully completed!")
-	print("{} sequences are in the taxon {}. These sequences were allocated in the filtered files".format(count_filtered_sequences, taxonomy_level))
-	print("{} sequences was unclassified in the {}. These sequences were allocated in the unclassified files".format(count_unclassified_sequences, taxonomy_file))
-	print("{} sequences are not in the taxon {}. These sequences were discarded".format(count_unfiltered_sequences, taxonomy_level))
+	print("-------------------------------------------------")
+	print("{} descendants sequences: {}".format(taxon, count_descendants_sequences))
+	print("Contaminant sequences: {}".format(count_contaminant_sequences))
+	print("Unlabelled sequences: {}".format(count_unclassified_sequences))
+	print("-------------------------------------------------")
+	print("{} descendants sequences are in the filtered files".format(taxon))
+	print("Contaminant sequences were discarded")
+	print("Unlabelled sequences are in the unclassified files")
