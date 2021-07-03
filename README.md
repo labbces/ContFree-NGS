@@ -55,5 +55,8 @@ Viridiplantae descendants sequences are in the filtered files
 Contaminant sequences were discarded
 Unlabelled sequences are in the unclassified files
 ```
-
-
+And should generate the files: 
+* contaminated_sugarcane_1.filtered.fastq
+* contaminated_sugarcane_1.unclassified.fastq
+* contaminated_sugarcane_2.filtered.fastq
+* contaminated_sugarcane_2.unclassified.fastq
