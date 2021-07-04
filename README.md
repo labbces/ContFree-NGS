@@ -26,6 +26,9 @@ Install Biopython:
 ```bash
 pip install biopython
 ```
+## Usage
+
+
 
 ## Example 
 
