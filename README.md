@@ -29,13 +29,13 @@ pip install biopython
 
 ## Example 
 
-We have prepared a Sugarcane contaminated dataset for your first run, it is available at `ContFree-NGS/data`. This dataset contains:
-* 1000 paired-end reads in fastq format;
-* A file with the NCBI Taxonomic ID for all of these reads. 
+We have prepared a Sugarcane contaminated dataset for your first run, it is available at `ContFree-NGS/data`. This dataset contains three files:
+* `contaminated_sugarcane_1.fastq` and `contaminated_sugarcane_2.fastq`: Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
+* `contaminated_sugarcane.kraken`: A file with the NCBI Taxonomic ID for all of these reads. 
 
 Check `ContFreeNGS/data/README.md` for more information about the Sugarcane contaminated dataset.
 
-### Running ContFree-NGS in the contaminated dataset, keeping only taxons in Viridiplantae  
+### Running ContFree-NGS in the contaminated dataset, keeping only taxons descendants of Viridiplantae  
 ```bash
 ./ContFree-NGS.py --taxonomy data/contaminated_sugarcane.kraken --left data/contaminated_sugarcane_1.fastq --right data/contaminated_sugarcane_2.fastq --taxon Viridiplantae 
 ```
