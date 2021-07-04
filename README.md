@@ -1,4 +1,4 @@
-# ContFree-NGS
+# ContFree-NGS.py
 
 A very simple filter, open source software that removes sequences from contaminating organisms in your NGS dataset based on a previous taxonomic classification.
 
