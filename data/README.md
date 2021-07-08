@@ -40,6 +40,6 @@ kraken2-build --download-library nt --db completeDB --no-masking --use-ftp
 
 Then, we ran `Kraken2` to taxonomically classify the Sugarcane contaminated dataset:
 ```bash
-kraken2 --db completeDB --report-zero-counts --confidence 0.05 --output sugarcane_contaminated.kraken --paired contaminated_sugarcane_1.fastq contaminated_sugarcane_1.fastq
+kraken2 --db completeDB --report-zero-counts --confidence 0.05 --output sugarcane_contaminated.kraken --paired contaminated_sugarcane_1.fastq contaminated_sugarcane_2.fastq
 ```
 Here we set --confidence as 0.05. A filtering threshold of 0.05 or 0.10 is indicated for general purposes by the authors, as mentioned in this [issue](https://github.com/DerrickWood/kraken2/issues/167). 
