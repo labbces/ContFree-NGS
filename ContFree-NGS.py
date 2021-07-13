@@ -13,8 +13,8 @@ from Bio import SeqIO
 parser = argparse.ArgumentParser(prog='ContFree-NGS.py', description='Removing reads from contaminating organisms in Next Generation Sequencing datatasets', add_help=True)
 parser.add_argument('--taxonomy', dest='taxonomy_file', metavar='<taxonomy file>', help='A taxonomy classification file', required=True)
 parser.add_argument('--sequencing_type, --s', dest='sequencing_type', metavar='<p or s>', help='paired-end (p) or single-end (s)', required=True)
-parser.add_argument('--R1', dest='R1_file', metavar='<R1 file>', help='read file 1', required=True)
-parser.add_argument('--R2', dest='R2_file', metavar='<R2 file>', help='read file 2', required=False)
+parser.add_argument('--R1', dest='R1_file', metavar='<R1 file>', help='FASTQ file 1', required=True)
+parser.add_argument('--R2', dest='R2_file', metavar='<R2 file>', help='FASTQ file 2', required=False)
 parser.add_argument('--taxon', dest='taxon', metavar='<Taxon>', type=str, help='Only this taxon and its descendants will be maintained',required=True)
 parser.add_argument('--v', '--version', action='version', version='%(prog)s v1.0')
 
