@@ -105,7 +105,6 @@ And should generate the files:
 * contaminated_sugarcane_2.filtered.fastq
 * contaminated_sugarcane_2.unclassified.fastq
 
-### Working with large files
 ### Runtime and RAM usage
 
 ContFree-NGS runtime and RAM usage are described in the chart below:
