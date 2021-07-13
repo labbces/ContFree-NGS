@@ -42,8 +42,8 @@ optional arguments:
                         A taxonomy classification file
   --sequencing_type, --s <p or s>
                         paired-end (p) or single-end (s)
-  --R1 <R1 file>        read file 1
-  --R2 <R2 file>        read file 2
+  --R1 <R1 file>        FASTQ file 1
+  --R2 <R2 file>        FASTQ file 2
   --taxon <Taxon>       Only this taxon and its descendants will be maintained
   --v, --version        show program's version number and exit
 ```
