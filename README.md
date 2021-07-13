@@ -106,14 +106,17 @@ And should generate the files:
 * contaminated_sugarcane_2.unclassified.fastq
 
 ### Working with large files
+### Runtime and RAM usage
 
 ContFree-NGS runtime and RAM usage are described in the chart below:
 
 ![Runtime and RAM usage](/images/runtime_and_RAM_usage.png)
 
-Reading and writing a file is an operation that takes considerable time. If you are working with large files (>2.000.000), we recommend that you split the taxonomic classification file into smaller files. This can be done as follows:
+This figure shows the RAM usage and time consuming to remove contaminants for the three contaminated sugarcane datasets.
+
+Reading and writing a file is an operation that takes considerable time. If you are working with big files, we recommend that you split the taxonomic classification file into smaller files. This can be done as follows:
 
 ```bash
-split -l $small_files_lines -d --additional-suffix=.taxonomic_file $taxonomic_classification_file splitted_
+split -l lines -d --additional-suffix=.taxonomic_file contaminated_sugarcane.kraken splitted_
 ```
 This should split your large taxonomic classification file into small files with a determinated prefix (splitted_n), where 'n' is the number of small files.  
