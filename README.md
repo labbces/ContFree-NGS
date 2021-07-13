@@ -28,7 +28,48 @@ pip install biopython
 ```
 ## Usage
 
+Opening the help page:
+```
+./ContFree-NGS.py -h
 
+usage: ContFree-NGS.py [-h] --taxonomy <taxonomy file> --sequencing_type, --s <p or s> --R1 <R1 file> [--R2 <R2 file>] --taxon <Taxon> [--v]
+
+Removing reads from contaminating organisms in Next Generation Sequencing datatasets
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --taxonomy <taxonomy file>
+                        A taxonomy classification file
+  --sequencing_type, --s <p or s>
+                        paired-end (p) or single-end (s)
+  --R1 <R1 file>        read file 1
+  --R2 <R2 file>        read file 2
+  --taxon <Taxon>       Only this taxon and its descendants will be maintained
+  --v, --version        show program's version number and exit
+```
+There are four required parameters: 
+
+`--taxonomy`: Taxonomy classification file (output of kraken2 or other classification tool).
+
+`--sequencing_type`: Use 'p' for paired-end reads or 's' for single-end reads.
+
+`--R1 and --R2`: For paired-end reads use --R1 for read file 1 and --R2 for read file 2. If you are working with single-end reads, use --R1 for read files. 
+
+`--taxon`: The user must provide a target a taxon (e.g Viridiplantae), which only sequences labeled in this target taxon or its descendants will be maintained in the filtered file. Sequences that not belong to the target taxon will be discarded and sequences that were not labeled at any taxon will be kept in the unclassified file. 
+
+ContFree-NGS will process the NGS dataset and its taxonomic classification file in the following way:
+
+<img src="https://github.com/labbces/ContFree-NGS/blob/main/images/ContFree-NGSPipeline.png" width="500">
+
+To assess the contamination of a NGS dataset, ContFree-NGS exploits a taxonomic classification file containing a taxon ID (NCBI Taxonomic ID) for every sequence in the dataset. This taxonomic classification file can be generated with a taxonomic classification tool, such as `Kraken2` (Wood et al., 2019) or `Kaiju` (Menzel et al., 2016).
+
+a) The user generates a taxonomic classification file and run ContFree-NGS providing a target taxon.
+
+b) ContFree-NGS creates an indexed database for the NGS dataset to reduce processing time; 
+
+c) Then, checks whether the labeled taxon for any sequence belongs to the target taxon or its descendants, generating filtered and unclassified files. 
+
+Note that the accuracy of ContFree-NGS contamination removal is directly dependent on the accuracy of the taxonomic classification engine, as ContFree-NGS uses the taxonomic label of each sequence to remove those that are from contaminants.
 
 ## Example 
 
