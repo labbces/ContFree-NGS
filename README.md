@@ -61,8 +61,6 @@ ContFree-NGS will process the NGS dataset and its taxonomic classification file 
 
 <img src="https://github.com/labbces/ContFree-NGS/blob/main/images/ContFree-NGSPipeline.png" width="500">
 
-To assess the contamination of a NGS dataset, ContFree-NGS exploits a taxonomic classification file containing a taxon ID (NCBI Taxonomic ID) for every sequence in the dataset. This taxonomic classification file can be generated with a taxonomic classification tool, such as `Kraken2` (Wood et al., 2019) or `Kaiju` (Menzel et al., 2016).
-
 a) The user generates a taxonomic classification file and run ContFree-NGS providing a target taxon.
 
 b) ContFree-NGS creates an indexed database for the NGS dataset to reduce processing time; 
@@ -72,6 +70,8 @@ c) Then, checks whether the labeled taxon for any sequence belongs to the target
 Note that the accuracy of ContFree-NGS contamination removal is directly dependent on the accuracy of the taxonomic classification engine, as ContFree-NGS uses the taxonomic label of each sequence to remove those that are from contaminants.
 
 ## Example 
+
+To assess the contamination of a NGS dataset, ContFree-NGS exploits a taxonomic classification file containing a taxon ID (NCBI Taxonomic ID) for every sequence in the dataset. This taxonomic classification file can be generated with a taxonomic classification tool, such as [Kraken2](https://github.com/DerrickWood/kraken2) or [Kaiju](https://github.com/bioinformatics-centre/kaiju).
 
 We have prepared a Sugarcane contaminated dataset for your first run, it is available at [ContFree-NGS/data/](https://github.com/labbces/ContFree-NGS/tree/main/data). This dataset contains three files:
 * [contaminated_sugarcane_1.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_1.fastq) and [contaminated_sugarcane_2.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_2.fastq): Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
