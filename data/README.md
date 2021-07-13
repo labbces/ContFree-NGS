@@ -4,15 +4,6 @@ We have prepared a Sugarcane contaminated dataset for yout first run.
 
 This dataset contains 1.000 paired-end reads in fastq format, which 800 reads come from `SP80-3280`, a genotype of Sugarcane spp. ([SRR1774134](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1774134)), 150 reads come from the bacteria `Acinetobacter baumanii` ([SRR12763742](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR12763742)) and 50 reads come from the fungus `Aspergillus fumigatus` ([DRR289670](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=DRR289670)).
 
-## Generating the contaminated Sugarcane dataset
-
-To generate the contaminated Sugarcane dataset, we did the following steps: 
-
-* Download of the reads above from the `Sequence Read Archive database`;
-* Convert the reads from `.sra` to `fastq` using `sratoolkit`;
-* Quality control of the reads, trimming reads with quality Q>20 and removing illumina adapters;
-* Concatenate 800 reads from SP80-3280, 150 reads from Acinetobacter baumanii and 50 reads from Aspergillus fumigatus
-
 ## Taxonomic classification file
 
 To assess the contamination of a NGS dataset, `ContFree-NGS` requires a taxonomic classification file. It can be generated with a taxonomic classification tool, such as Kraken2 (Wood et al., 2019), Kaiju (Menzel et al., 2016), CLARK (Ounit et al., 2015), Centrifuge (Kim et al., 2016) and others.
