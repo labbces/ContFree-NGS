@@ -73,9 +73,9 @@ Note that the accuracy of ContFree-NGS contamination removal is directly depende
 
 ## Example 
 
-We have prepared a Sugarcane contaminated dataset for your first run, it is available at `ContFree-NGS/data`. This dataset contains three files:
-* `contaminated_sugarcane_1.fastq` and `contaminated_sugarcane_2.fastq`: Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
-* `contaminated_sugarcane.kraken`: A file with the NCBI Taxonomic ID for all of these reads. 
+We have prepared a Sugarcane contaminated dataset for your first run, it is available at [ContFree-NGS/data/](https://github.com/labbces/ContFree-NGS/tree/main/data). This dataset contains three files:
+* [contaminated_sugarcane_1.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_1.fastq) and [contaminated_sugarcane_2.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_2.fastq): Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
+* [contaminated_sugarcane.kraken](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane.kraken): A file with the NCBI Taxonomic ID for all of these reads. 
 
 Check `ContFreeNGS/data/README.md` for more information about the Sugarcane contaminated dataset.
 
