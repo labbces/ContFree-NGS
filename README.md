@@ -59,7 +59,7 @@ There are four required parameters:
 
 ContFree-NGS will process the NGS dataset and its taxonomic classification file in the following way:
 
-<img src="https://github.com/labbces/ContFree-NGS/blob/main/images/ContFree-NGSPipeline.png" width="500">
+<img src="https://github.com/labbces/ContFree-NGS/blob/main/images/pipeline.png" width="500">
 
 a) The user generates a taxonomic classification file and run ContFree-NGS providing a target taxon.
 
