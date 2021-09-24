@@ -81,7 +81,7 @@ Check `ContFreeNGS/data/README.md` for more information about the Sugarcane cont
 
 ### Running ContFree-NGS in the contaminated dataset, keeping only taxons descendants of Viridiplantae  
 ```bash
-./ContFree-NGS.py --taxonomy data/contaminated_sugarcane.kraken --left data/contaminated_sugarcane_1.fastq --right data/contaminated_sugarcane_2.fastq --taxon Viridiplantae 
+./ContFree-NGS.py --taxonomy data/contaminated_sugarcane.kraken --s p --R1 data/contaminated_sugarcane_1.fastq --R2 data/contaminated_sugarcane_2.fastq --taxon Viridiplantae 
 ```
 
 This should print the following in your screen:
