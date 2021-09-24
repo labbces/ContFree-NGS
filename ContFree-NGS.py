@@ -107,8 +107,8 @@ if paired == 1:
 		for line in taxonomy_classification_file:
 
 			#Getting IDs
-			R1_sequence_id = line.split()[1] + "/1"
-			R2_sequence_id = line.split()[1] + "/2"
+			R1_sequence_id = line.split()[1] #+ "/1"
+			R2_sequence_id = line.split()[1] #+ "/2"
 			taxonomy_id = int(line.split()[2])
 
 			#Getting sequences in descendants (user taxonomic level)
