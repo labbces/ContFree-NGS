@@ -34,7 +34,7 @@ Then, build the database and ran `Kraken2` to taxonomically classify the artific
 ```bash
 
 kraken2 --build completeDB
-kraken2 --db completeDB --report-zero-counts --confidence 0.05 --output sugarcane_contaminated.kraken --paired contaminated_sugarcane_1.fastq contaminated_sugarcane_2.fastq
+kraken2 --db completeDB --report-zero-counts --confidence 0.05 --output artificially_contaminated.kraken --paired artificially_contaminated_1.fastq artificially_contaminated_2.fastq
 ```
 
 NOTE: We set --confidence as 0.05. By the author of Kraken2, a filtering threshold of 0.05 or 0.10 is stated for general purposes as mentioned in this [issue](https://github.com/DerrickWood/kraken2/issues/167). 
