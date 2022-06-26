@@ -1,6 +1,6 @@
 # ContFree-NGS.py
 
-A very simple filter, open source software that removes sequences from contaminating organisms in your NGS dataset based on an existing taxonomic classification.
+A very simple filter, open source software that removes sequences from contaminating organisms in your NGS dataset based on a taxonomic classification file.
 
 ## Requirements
 * python >= 3.8.5
@@ -73,15 +73,15 @@ Note that the accuracy of ContFree-NGS contamination removal is directly depende
 
 To assess the contamination of a NGS dataset, ContFree-NGS exploits a taxonomic classification file containing a taxon ID (NCBI Taxonomic ID) for every sequence in the dataset. This taxonomic classification file can be generated with a taxonomic classification tool, such as [Kraken2](https://github.com/DerrickWood/kraken2) or [Kaiju](https://github.com/bioinformatics-centre/kaiju).
 
-We have prepared a Sugarcane contaminated dataset for your first run, it is available at [ContFree-NGS/data/](https://github.com/labbces/ContFree-NGS/tree/main/data). This dataset contains three files:
-* [contaminated_sugarcane_1.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_1.fastq) and [contaminated_sugarcane_2.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane_2.fastq): Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
-* [contaminated_sugarcane.kraken](https://github.com/labbces/ContFree-NGS/blob/main/data/contaminated_sugarcane.kraken): A file with the NCBI Taxonomic ID for all of these reads. 
+We have prepared a artificially contaminated dataset for your first run, it is available at [ContFree-NGS/data/](https://github.com/labbces/ContFree-NGS/tree/main/data). This dataset contains three files:
+* [artificially_contaminated_1.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated_1.fastq) and [artificially_contaminated_2.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated_2.fastq): Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
+* [artificially_contaminated.kraken](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated.kraken): A file with the NCBI Taxonomic ID for all of these reads. 
 
-Check `ContFreeNGS/data/README.md` for more information about the Sugarcane contaminated dataset.
+Check `ContFreeNGS/data/README.md` for more information about the artificially contaminated dataset.
 
 ### Running ContFree-NGS in the contaminated dataset, keeping only taxons descendants of Viridiplantae  
 ```bash
-./ContFree-NGS.py --taxonomy data/contaminated_sugarcane.kraken --s p --R1 data/contaminated_sugarcane_1.fastq --R2 data/contaminated_sugarcane_2.fastq --taxon Viridiplantae 
+./ContFree-NGS.py --taxonomy data/artificially_contaminated.kraken --s p --R1 data/artificially_contaminated_1.fastq --R2 data/artificially_contaminated_2.fastq --taxon Viridiplantae 
 ```
 
 This should print the following in your screen:
@@ -100,10 +100,10 @@ Contaminant sequences were discarded
 Unlabelled sequences are in the unclassified files
 ```
 And should generate the files: 
-* contaminated_sugarcane_1.filtered.fastq
-* contaminated_sugarcane_1.unclassified.fastq
-* contaminated_sugarcane_2.filtered.fastq
-* contaminated_sugarcane_2.unclassified.fastq
+* artificially_contaminated_1.filtered.fastq
+* artificially_contaminated_1.unclassified.fastq
+* artificially_contaminated_2.filtered.fastq
+* artificially_contaminated_2.unclassified.fastq
 
 ### Runtime and RAM usage
 
@@ -111,11 +111,11 @@ ContFree-NGS runtime and RAM usage are described in the chart below:
 
 ![Runtime and RAM usage](/images/runtime_and_RAM_usage.png)
 
-This figure shows the RAM usage and time consuming to remove contaminants for the three contaminated sugarcane datasets.
+This figure shows the RAM usage and time consuming to remove contaminants for the three artificially contaminated datasets.
 
 Reading and writing a file is an operation that takes considerable time. If you are working with big files, we recommend that you split the taxonomic classification file into smaller files. This can be done as follows:
 
 ```bash
-split -l lines -d --additional-suffix=.taxonomic_file contaminated_sugarcane.kraken splitted_
+split -l lines -d --additional-suffix=.taxonomic_file artificially_contaminated.kraken splitted_
 ```
 This should split your large taxonomic classification file into small files with a determinated prefix (splitted_n), where 'n' is the number of small files.  
