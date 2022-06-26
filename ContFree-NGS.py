@@ -41,12 +41,13 @@ else:
 
 #Checking for indexed file and create it if dont exists	
 def create_indexed_db_for_paired_fastq_files():
-	indexdb_R1_file = R1_file[:-5] + "index"
-	indexdb_R2_file = R2_file[:-5] + "index"
-	if not os.path.exists(indexdb_R1_file) and not os.path.exists(indexdb_R2_file):
-		print("Creating an indexed database for your paired-end reads, please wait ... \n")
-		R1_index_db = SeqIO.index_db(indexdb_R1_file, R1_file, "fastq")
-		R2_index_db = SeqIO.index_db(indexdb_R2_file, R2_file, "fastq")
+    indexdb_R1_file = R1_file[:-5] + "index"
+    indexdb_R2_file = R2_file[:-5] + "index"
+    print("Using pre-created indexed database for your paired-end reads...")
+    if not os.path.exists(indexdb_R1_file) and not os.path.exists(indexdb_R2_file):
+        print("Creating an indexed database for your paired-end reads, please wait ... \n")
+        R1_index_db = SeqIO.index_db(indexdb_R1_file, R1_file, "fastq")
+        R2_index_db = SeqIO.index_db(indexdb_R2_file, R2_file, "fastq")
 
 def create_indexed_db_for_single_fastq_files():
 	indexdb_R1_file = R1_file[:-5] + "index"
@@ -107,8 +108,8 @@ if paired == 1:
 		for line in taxonomy_classification_file:
 
 			#Getting IDs
-			R1_sequence_id = line.split()[1] #+ "/1"
-			R2_sequence_id = line.split()[1] #+ "/2"
+			R1_sequence_id = line.split()[1] + "/1"
+			R2_sequence_id = line.split()[1] + "/2"
 			taxonomy_id = int(line.split()[2])
 
 			#Getting sequences in descendants (user taxonomic level)
