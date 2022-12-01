@@ -104,7 +104,8 @@ count_contaminant_sequences = 0
 
 #Filtering files
 if paired == 1:
-	with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_R1, "w") as classified_R1, open(filtered_R2, "w") as classified_R2, open(unfiltered_R1, "w") as unclassified_R1, open(unfiltered_R2, "w") as unclassified_R2:
+	with open(taxonomy_file, "r") as taxonomy_classification_file, open(filtered_R1, "w") as classified_R1, open(filtered_R2, "w") as classified_R2,
+	open(unfiltered_R1, "w") as unclassified_R1, open(unfiltered_R2, "w") as unclassified_R2:
 		for line in taxonomy_classification_file:
 
 			#Getting IDs
