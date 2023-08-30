@@ -2,6 +2,8 @@
 
 A very simple filter, open source software that removes sequences from contaminating organisms in your NGS dataset based on a taxonomic classification file.
 
+**Note for users:** I appreciate your interest in ContFree-NGS. However, it's worth noting that there are more advanced alternatives currently available. I strongly recommend considering [KrakenTools](https://github.com/jenniferlu717/KrakenTools), which offers enhanced individual scripts for the analysis of Kraken/Kraken2/Bracken/KrakenUniq output files.
+
 ## Requirements
 * python >= 3.8.5
 * ETE Toolkit >= 3.1.2
@@ -77,7 +79,7 @@ We have prepared a artificially contaminated dataset for your first run, it is a
 * [artificially_contaminated_1.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated_1.fastq) and [artificially_contaminated_2.fastq](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated_2.fastq): Two paired-end files containing 1000 reads (800 from SP80-3280, a genotype of Sugarcane spp., 150 from the bacteria Acinetobacter baumanii and 50 from the fungus Aspergillus fumigatus);
 * [artificially_contaminated.kraken](https://github.com/labbces/ContFree-NGS/blob/main/data/artificially_contaminated.kraken): A file with the NCBI Taxonomic ID for all of these reads. 
 
-Check `ContFreeNGS/data/README.md` for more information about the artificially contaminated dataset.
+Check [ContFreeNGS/data/README.md](https://github.com/labbces/ContFree-NGS/tree/main/data) for more information about the artificially contaminated dataset.
 
 ### Running ContFree-NGS in the contaminated dataset, keeping only taxons descendants of Viridiplantae  
 ```bash
@@ -105,7 +107,7 @@ And should generate the files:
 * artificially_contaminated_2.filtered.fastq
 * artificially_contaminated_2.unclassified.fastq
 
-### Runtime and RAM usage
+## Runtime and RAM usage
 
 ContFree-NGS runtime and RAM usage are described in the chart below:
 
@@ -119,3 +121,7 @@ Reading and writing a file is an operation that takes considerable time. If you 
 split -l lines -d --additional-suffix=.taxonomic_file artificially_contaminated.kraken splitted_
 ```
 This should split your large taxonomic classification file into small files with a determinated prefix (splitted_n), where 'n' is the number of small files.  
+
+## Publication
+
+Peres, F.V., Riaño-Pachón, D.M. (2021). ContFree-NGS: Removing Reads from Contaminating Organisms in Next Generation Sequencing Data. Advances in Bioinformatics and Computational Biology. BSB 2021. Lecture Notes in Computer Science, vol 13063. Springer, Cham. DOI: https://doi.org/10.1007/978-3-030-91814-9_6
